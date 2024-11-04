@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tech_shift/core/colors.dart';
 import 'package:tech_shift/core/constants.dart';
-import 'package:tech_shift/view/screens/sign_up_screen/sign_up_screen.dart';
+import 'package:tech_shift/view/screens/user_side/forgot_password/forgot_password.dart';
+import 'package:tech_shift/view/screens/user_side/sign_up_screen/sign_up_screen.dart';
 
 class ScreenLogin extends StatelessWidget {
   const ScreenLogin({super.key});
@@ -163,7 +164,7 @@ class ScreenLogin extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (ctx) => ScreenSignUp()));
+                                    builder: (ctx) => ForgotPassword()));
                           },
                           child: Text("Forgot Password?",
                               style: TextStyle(color: appThemePurple800)),
