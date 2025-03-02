@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tech_shift/core/colors.dart';
 import 'package:tech_shift/core/constants.dart';
+import 'package:tech_shift/core/navigation_services.dart';
 import 'package:tech_shift/view/screens/user_side/forgot_password/forgot_password.dart';
 import 'package:tech_shift/view/screens/user_side/sign_up_screen/sign_up_screen.dart';
 
-class ScreenLogin extends StatelessWidget {
-  const ScreenLogin({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +59,7 @@ class ScreenLogin extends StatelessWidget {
                       child: Container(
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/clock.png'))),
+                                image: AssetImage('assets/images/clock.png'))),
                       )),
                 ),
                 Positioned(
@@ -83,7 +83,7 @@ class ScreenLogin extends StatelessWidget {
                         margin: const EdgeInsets.only(top: 50),
                         child: const Center(
                           child: Text(
-                            "Login",
+                            "Sign In",
                             style: TextStyle(
                                 color: white,
                                 fontSize: 40,
@@ -120,9 +120,10 @@ class ScreenLogin extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          color: appThemePurple800))),
+                                  // border: Border(
+                                  //     bottom:
+                                  //         BorderSide(color: appThemePurple800)),
+                                  ),
                               child: TextFormField(
                                 keyboardType: TextInputType.emailAddress,
                                 // controller: viewModel.emailOrphone,
@@ -160,12 +161,8 @@ class ScreenLogin extends StatelessWidget {
                     FadeInUp(
                         duration: const Duration(milliseconds: 2000),
                         child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (ctx) => ForgotPassword()));
-                          },
+                          onPressed: () => NavigationService.instance
+                              .navigate(ForgotPassword()),
                           child: Text("Forgot Password?",
                               style: TextStyle(color: appThemePurple800)),
                         )),
@@ -186,7 +183,7 @@ class ScreenLogin extends StatelessWidget {
                             ])),
                         child: const Center(
                           child: Text(
-                            "Login",
+                            "Sign In",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
@@ -196,10 +193,8 @@ class ScreenLogin extends StatelessWidget {
                     )),
                 h50,
                 GestureDetector(
-                  onTap: () => Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (ctx) => const ScreenSignUp())),
+                  onTap: () =>
+                      NavigationService.instance.navigate(SignUpScreen()),
                   child: FadeInUp(
                       duration: const Duration(milliseconds: 2000),
                       child: Text(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137194745088",
+    "project_id": "tech-shift-7",
+    "storage_bucket": "tech-shift-7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137194745088:android:37a896dbb26a1e037b97e5",
+        "android_client_info": {
+          "package_name": "com.tech.shift"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq9TrM-ZFi-yH0o5Hh8VYIgb-OG9JYYYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

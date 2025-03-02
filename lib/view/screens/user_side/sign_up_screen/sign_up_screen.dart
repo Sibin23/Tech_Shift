@@ -3,49 +3,63 @@ import 'package:flutter/material.dart';
 import 'package:tech_shift/core/colors.dart';
 import 'package:tech_shift/core/constants.dart';
 
-class ScreenSignUp extends StatelessWidget {
-  const ScreenSignUp({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBodyBehindAppBar: false,
+
+      extendBody: true,
       body: ListView(
               children: [
-      SizedBox(
-        height: 400,
+      // SizedBox(
+      //   height: 400,
+      //   child: Stack(
+      //     children: <Widget>[
+      //       Positioned(
+      //         top: -40,
+      //         height: 400,
+      //         width: width,
+      //         child: FadeInUp(
+      //             duration: const Duration(seconds: 1),
+      //             child: Container(
+      //               decoration: const BoxDecoration(
+      //                   image: DecorationImage(
+      //                       image:
+      //                           AssetImage('assets/images/signup_bg1.png'),
+      //                       fit: BoxFit.fill)),
+      //             )),
+      //       ),
+      //       Positioned(
+      //         height: 400,
+      //         width: width + 20,
+      //         child: FadeInUp(
+      //             duration: const Duration(milliseconds: 1000),
+      //             child: Container(
+      //               decoration: const BoxDecoration(
+      //                   image: DecorationImage(
+      //                       image:
+      //                           AssetImage('assets/images/signup_bg2.png'),
+      //                       fit: BoxFit.fill)),
+      //             )),
+      //       )
+      //     ],
+      //   ),
+      // ),
+      Container(
+    
+        height: 200,
+        color: Colors.amber,
         child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: -40,
-              height: 400,
-              width: width,
-              child: FadeInUp(
-                  duration: const Duration(seconds: 1),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                AssetImage('assets/images/signup_bg1.png'),
-                            fit: BoxFit.fill)),
-                  )),
-            ),
-            Positioned(
-              height: 400,
-              width: width + 20,
-              child: FadeInUp(
-                  duration: const Duration(milliseconds: 1000),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image:
-                                AssetImage('assets/images/signup_bg2.png'),
-                            fit: BoxFit.fill)),
-                  )),
-            )
+          children: [
+            Image.asset('assets/images/logo.png', fit: BoxFit.contain,),
+            Text(('Tech Shift'))
           ],
-        ),
-      ),
+          
+        )),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(
