@@ -9,18 +9,41 @@ class NavigationService {
     navigationKey = GlobalKey<NavigatorState>();
   }
 
-  navigate(Widget rn,[ VoidCallback? voidCallback]) {
+  navigate(Widget rn, [VoidCallback? voidCallback]) {
     navigationKey.currentState!
-        .push(MaterialPageRoute(builder: (context) => rn)).then((value) {
-          voidCallback!();
-        },);
+        .push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => rn,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 300), // Adjust as needed
+    )).then((value) {
+      if (voidCallback != null) {
+        voidCallback();
+      }
+    });
   }
 
-  navigateUntil(Widget screen,[VoidCallback? voidCallback]) {
+  navigateUntil(Widget screen, [VoidCallback? voidCallback]) {
     navigationKey.currentState!.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (ctx) => screen), (route) => false).then((value){
-          voidCallback!();
-        });
+        PageRouteBuilder(
+          pageBuilder: (ctx, animation, secondaryAnimation) => screen,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 600), // Adjust as needed
+        ),
+        (route) => false).then((value) {
+      if (voidCallback != null) {
+        voidCallback();
+      }
+    });
   }
 
   goBack() {

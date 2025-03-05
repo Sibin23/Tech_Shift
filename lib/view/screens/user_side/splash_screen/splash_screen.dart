@@ -1,11 +1,10 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:animate_do/animate_do.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tech_shift/core/colors.dart';
+import 'package:tech_shift/core/constants.dart';
 import 'package:tech_shift/core/navigation_services.dart';
-import 'package:tech_shift/view/screens/user_side/login_screen/login_screen.dart';
+import 'package:tech_shift/view/screens/user_side/authentication/sign_in/signin_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,32 +19,34 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
   late Animation<double> _opacityAnimation;
-
+  bool _moved = false; // Add a boolean to control the movement
 
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2400),
+      duration: Duration(milliseconds: 1400),
     );
 
     _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInExpo),
     );
     _opacityAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
-   
-    // Start the fade-out animation and then navigate.
-    Future.delayed(const Duration(milliseconds: 100), () {
+
+    Future.delayed(const Duration(milliseconds: 1600), () {
+      setState(() {
+        _moved = true;
+      });
       _animationController.forward().then((_) {
-        Future.delayed(const Duration(milliseconds: 1000), () {
-          // add a small delay before navigation
-          NavigationService.instance.navigateUntil(LoginScreen());
+        Future.delayed(const Duration(milliseconds: 500), () {
+          // navigate to login screen with fade
+          NavigationService.instance.navigateUntil(SignInScreen());
         });
       });
     });
@@ -59,102 +60,42 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            color: black,
+          SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: Stack(children: [
-              Positioned(
-                top: -50, // Adjust for smoother overlap
-                right: -50, // Adjust for smoother overlap
+              AnimatedPositioned(
+                curve: Curves.easeOut,
+                duration: const Duration(milliseconds: 2800),
+                top: _moved ? -5 : -5,
+                left: _moved ? -screenWidth - 220 : -60,
                 child: Container(
-                  height: 250, // Slightly larger for smoother look
-                  width: 250, // Slightly larger for smoother look
+                  height: 250,
+                  width: 250,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.purple.withOpacity(0.7), // Reduced opacity
-                    gradient: RadialGradient(
-                      colors: [
-                        Colors.purple.withOpacity(0.5),
-                        Colors.black.withOpacity(0.3),
-                      ],
-                      stops: [0.3, 1.0], // Adjust stops for smoother gradient
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.purple.withOpacity(0.3),
-                        blurRadius: 30,
-                        spreadRadius: 10,
-                      ),
-                    ],
-                  ),
+                      image: DecorationImage(image: AssetImage(splashImg1))),
                 ),
               ),
-              Positioned(
-                top: 190, // Adjust for smoother overlap
-                left: -100, // Adjust for smoother overlap
+              AnimatedPositioned(
+                curve: Curves.easeOut,
+                duration: const Duration(milliseconds: 2800),
+                bottom: _moved ? -5 : -5,
+                right: _moved ? -screenWidth - 220 : -60,
                 child: Container(
-                  height: 220, // Slightly larger for smoother look
-                  width: 220, // Slightly larger for smoother look
+                  height: 250,
+                  width: 250,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: appThemeColor2.withOpacity(0.6), // Reduced opacity
-                    boxShadow: [
-                      BoxShadow(
-                        color: appThemeColor2.withOpacity(0.3),
-                        blurRadius: 30,
-                        spreadRadius: 10,
-                      ),
-                    ],
-                    gradient: RadialGradient(
-                      colors: [
-                        appThemeColor2.withOpacity(0.5),
-                        Colors.black.withOpacity(0.3),
-                      ],
-                      stops: [0.3, 1.0], // Adjust stops for smoother gradient
-                    ),
-                  ),
+                      image: DecorationImage(image: AssetImage(splashImg2))),
                 ),
               ),
-              Positioned(
-                bottom: -300, // Adjust for smoother overlap
-                right: -200, // Adjust for smoother overlap
-                child: Container(
-                  height: 550, // Slightly larger for smoother look
-                  width: 550, // Slightly larger for smoother look
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.purple.withOpacity(0.5), // Reduced opacity
-                    gradient: RadialGradient(
-                      colors: [
-                        Colors.purple.withOpacity(0.5),
-                        Colors.black.withOpacity(0.3),
-                      ],
-                      stops: [0.3, 1.0], // Adjust stops for smoother gradient
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.purple.withOpacity(0.2),
-                        blurRadius: 50,
-                        spreadRadius: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              BackdropFilter(
-                  child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                  filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50)),
             ]),
           ),
           Positioned(
-            top: 200,
+            top: 240,
             left: 0,
             right: 0,
             child: FadeTransition(
@@ -163,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen>
                   alignment: Alignment.center,
                   height: 250,
                   width: 250,
-                  child: Image.asset('assets/images/logo.png')),
+                  child: Image.asset(logo)),
             ),
           ),
           Center(
@@ -171,7 +112,7 @@ class _SplashScreenState extends State<SplashScreen>
               opacity: _fadeAnimation,
               child: Text(
                 "Tech Shift",
-                style: GoogleFonts.ibmPlexSerif(color: white, fontSize: 30),
+                style: Theme.of(context).textTheme.displayLarge,
               ),
             ),
           ),
@@ -179,7 +120,13 @@ class _SplashScreenState extends State<SplashScreen>
               right: 0,
               left: 0,
               bottom: 20,
-              child: Text(textAlign: TextAlign.center, 'Version 1.0')),
+              child: FadeTransition(
+                  opacity: _scaleAnimation,
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    'Version 1.0',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ))),
         ],
       ),
     );

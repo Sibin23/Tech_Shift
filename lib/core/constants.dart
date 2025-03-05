@@ -24,3 +24,9 @@ const userPassword = 'Password';
 const tempPassword = 'tempPass';
 const userUid = 'uid';
 const userNumber = 'PhoneNumber';
+
+// images
+const String logo = 'assets/images/logo.png';
+const String signinImg = 'assets/images/signin_bg.png';
+const String splashImg1 = 'assets/images/splash_bg1.png';
+const String splashImg2 = 'assets/images/splash_bg2.png';
